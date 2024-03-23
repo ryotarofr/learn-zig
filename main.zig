@@ -1,22 +1,20 @@
-// 全ての関数の引数は不変
-// 関数はキャメルケース
-
+/// ポインタ
+/// まず、main関数内でu8型の変数xを宣言し、初期値として0を設定しています。
+/// 次に、increment関数を呼び出し、その引数としてxのアドレス（&x）を渡しています。
+/// この&演算子は、変数のアドレスを取得するために使用されます。
+/// increment関数は、引数としてu8型のポインタ（*u8）を受け取ります。
+/// この関数内で、引数の指す値（num.*）に1を加えることで、元の変数xの値を増加させています。
+/// この.*演算子は、ポインタが指す値にアクセスするために使用されます。
+/// 最後に、main関数内でstd.debug.print関数を使用して、xの最終的な値を出力しています。
+/// このプログラムを実行すると、xの初期値が0であるため、出力結果は"1\n"となります。
 const std = @import("std");
 
 pub fn main() void {
-    const x = 2;
-    switch (x) {
-        1 => std.debug.print("x is 1\n", .{}),
-        2 => std.debug.print("x is 2\n", .{}),
-        3 => std.debug.print("x is 3\n", .{}),
-        else => std.debug.print("x is not 1, 2, or 3\n", .{}),
-    }
-    switch (x) {
-        1...3 => std.debug.print("x is 1 ~ 3\n", .{}),
-        else => std.debug.print("x is not 1, 2, or 3\n", .{}),
-    }
-    switch (x) {
-        1, 2 => std.debug.print("x is 1 or 2\n", .{}),
-        else => std.debug.print("x is not 1, 2, or 3\n", .{}),
-    }
+    var x: u8 = 1;
+    increment(&x);
+    std.debug.print("{}\n", .{x}); // 2
+}
+
+fn increment(num: *u8) void {
+    num.* += 1;
 }
