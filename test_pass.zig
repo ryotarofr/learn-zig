@@ -1,23 +1,7 @@
-// run : zig test test_pass.zig
-
+/// run : zig test test_pass.zig
 const expect = @import("std").testing.expect;
-
-test "for" {
-    //character literals are equivalent to integer literals
-    const string = [_]u8{ 'a', 'b', 'c' };
-
-    for (string, 0..) |character, index| {
-        _ = character;
-        _ = index;
-    }
-
-    for (string) |character| {
-        _ = character;
-    }
-
-    for (string, 0..) |_, index| {
-        _ = index;
-    }
-
-    for (string) |_| {}
+test "slices 2" {
+    const array = [_]u8{ 1, 2, 3, 4, 5 };
+    const slice = array[0..3];
+    try expect(@TypeOf(slice) == *const [3]u8);
 }

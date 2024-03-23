@@ -1,24 +1,25 @@
+/// スライス
 const std = @import("std");
-
 pub fn main() void {
-    const string = [_]u8{ 'a', 'b', 'c' };
+    const array = [_]u8{ 1, 2, 3, 4, 5 };
+    const slice = array[0..3];
+    const slice2 = array[0..];
+    std.debug.print("total(slice) = {}\n", .{total(slice)});
+    std.debug.print("total(slice2) = {}\n", .{total(slice2)});
+    try sliceTest();
+}
 
-    for (string, 0..) |character, index| {
-        _ = character;
-        _ = index;
+fn total(values: []const u8) usize {
+    var sum: usize = 0;
+    for (values) |v| sum += v;
+    return sum;
+}
+
+pub fn sliceTest() !void {
+    const array = [_]u8{ 1, 2, 3, 4, 5 };
+    const slice = array[0..3];
+    if (@TypeOf(slice) != *const [3]u8) {
+        return error.TypeMismatch;
     }
-
-    for (string, 0..) |character, index| {
-        std.debug.print("Character: {c}, Index: {d}\n", .{ character, index });
-    }
-
-    for (string) |character| {
-        _ = character;
-    }
-
-    for (string, 0..) |_, index| {
-        _ = index;
-    }
-
-    for (string) |_| {}
+    std.debug.print("Type matches\n", .{});
 }
