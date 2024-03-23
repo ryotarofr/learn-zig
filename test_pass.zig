@@ -2,22 +2,17 @@
 
 const expect = @import("std").testing.expect;
 
-test "for" {
-    //character literals are equivalent to integer literals
-    const string = [_]u8{ 'a', 'b', 'c' };
+const FileOpenError = error{
+    AccessDenied,
+    OutOfMemory,
+    FileNotFound,
+};
+const AllocationError = error{OutOfMemory};
 
-    for (string, 0..) |character, index| {
-        _ = character;
-        _ = index;
-    }
+test "error union" {
+    const maybe_error: AllocationError!u16 = 10;
+    const no_error = maybe_error catch 0;
 
-    for (string) |character| {
-        _ = character;
-    }
-
-    for (string, 0..) |_, index| {
-        _ = index;
-    }
-
-    for (string) |_| {}
+    try expect(@TypeOf(no_error) == u16);
+    try expect(no_error == 10);
 }
