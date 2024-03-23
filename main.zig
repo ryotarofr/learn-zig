@@ -1,9 +1,24 @@
 const std = @import("std");
 
 pub fn main() void {
-    great("World");
-}
+    const string = [_]u8{ 'a', 'b', 'c' };
 
-pub fn great(name: []const u8) void {
-    std.debug.print("Hello, {s}!\n", .{name});
+    for (string, 0..) |character, index| {
+        _ = character;
+        _ = index;
+    }
+
+    for (string, 0..) |character, index| {
+        std.debug.print("Character: {c}, Index: {d}\n", .{ character, index });
+    }
+
+    for (string) |character| {
+        _ = character;
+    }
+
+    for (string, 0..) |_, index| {
+        _ = index;
+    }
+
+    for (string) |_| {}
 }
